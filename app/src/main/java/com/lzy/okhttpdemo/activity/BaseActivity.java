@@ -107,65 +107,70 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected <T> void handleResponse(boolean isFromCache, T data, Request request, @Nullable Response response) {
+        //请求状态
         requestState.setText("请求成功  是否来自缓存：" + isFromCache + "  请求方式：" + request.method() + "\n" +
                 "url：" + request.url());
-
+        //请求头
         Headers requestHeadersString = request.headers();
         Set<String> requestNames = requestHeadersString.names();
         StringBuilder sb = new StringBuilder();
-        for (String name : requestNames) {
-            sb.append(name).append(" ： ").append(requestHeadersString.get(name)).append("\n");
+        for (String name:requestNames){
+            sb.append(name).append(" : ").append(requestHeadersString.get(name)).append("\n");
         }
         requestHeaders.setText(sb.toString());
 
-        if (data == null) {
+
+        // 响应返回的数据
+        if(data ==null){
             responseData.setText("--");
-        } else {
-            if (data instanceof String) {
-                responseData.setText((String) data);
-            } else if (data instanceof List) {
+        }else{
+            if(data instanceof String){
+                responseData.setText((String)data);
+            }else if(data instanceof List){
                 sb = new StringBuilder();
                 List list = (List) data;
-                for (Object obj : list) {
+                for (Object obj :list){
                     sb.append(obj.toString()).append("\n");
                 }
                 responseData.setText(sb.toString());
-            } else if (data instanceof Set) {
+            }else if(data instanceof Set){
                 sb = new StringBuilder();
                 Set set = (Set) data;
-                for (Object obj : set) {
+                for (Object obj:set){
                     sb.append(obj.toString()).append("\n");
                 }
                 responseData.setText(sb.toString());
-            } else if (data instanceof Map) {
+            }else if(data instanceof Map){
                 sb = new StringBuilder();
                 Map map = (Map) data;
                 Set keySet = map.keySet();
-                for (Object key : keySet) {
-                    sb.append(key.toString()).append(" ： ").append(map.get(key)).append("\n");
+                for(Object obj :keySet){
+                    sb.append(obj.toString()).append("\n");
                 }
                 responseData.setText(sb.toString());
-            } else if (data instanceof File) {
+            }else if(data instanceof File){
                 File file = (File) data;
-                responseData.setText("数据内容即为文件内容\n下载文件路径：" + file.getAbsolutePath());
-            } else if (data instanceof Bitmap) {
-                responseData.setText("图片的内容即为数据");
-            } else {
+                responseData.setText("内容即文件,文件的路径是" + file.getAbsolutePath());
+            }else if(data instanceof Bitmap){
+                Bitmap bitmap = (Bitmap) data;
+                responseData.setText("图片内容即为数据");
+            }else{
                 responseData.setText(data.toString());
             }
         }
-
-        if (response != null) {
-            Headers responseHeadersString = response.headers();
-            Set<String> names = responseHeadersString.names();
+        // 响应头
+        if(response !=null){
+            Headers responseHeadersString = response.headers(); //响应头
+            Set<String> names = requestHeadersString.names();
             sb = new StringBuilder();
-            sb.append("url ： ").append(response.request().url()).append("\n\n");
-            sb.append("stateCode ： ").append(response.code()).append("\n");
-            for (String name : names) {
-                sb.append(name).append(" ： ").append(responseHeadersString.get(name)).append("\n");
+            sb.append("url:   ").append(response.request().url()).append("\n\n"); //获取url
+            sb.append("stateCode:  ").append(response.code()).append("\n"); //响应码
+            for (String name:names){
+                sb.append(name).append(" : ").append(requestHeadersString.get(name)).append("\n");
             }
-        } else if (isFromCache) {
-            sb = new StringBuilder("响应头可以根据 cacheKey 获取到，在此不演示！");
+
+        }else if(isFromCache){
+            sb = new StringBuilder("响应头可以根据 cacheKey获取");
         }
         responseHeader.setText(sb.toString());
     }
