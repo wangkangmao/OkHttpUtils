@@ -54,14 +54,14 @@ public class MethodActivity extends BaseActivity implements AdapterView.OnItemCl
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
-                OkHttpUtils.get(Urls.URL_METHOD)//
+                OkHttpUtils.get(Urls.URL_METHOD)//  Get请求
                         .tag(this)//
                         .headers("header1", "headerValue1")//
                         .params("param1", "paramValue1")//
                         .execute(new MethodCallBack<>(this, RequestInfo.class));
                 break;
             case 1:
-                OkHttpUtils.head(Urls.URL_METHOD)//
+                OkHttpUtils.head(Urls.URL_METHOD)//  HEAD 只有请求头
                         .tag(this)//
                         .headers("header1", "headerValue1")//
                         .params("param1", "paramValue1")//

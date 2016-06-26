@@ -22,6 +22,9 @@ import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ *  自定义请求对象
+ */
 public class CustomRequestActivity extends BaseActivity {
 
     @Override

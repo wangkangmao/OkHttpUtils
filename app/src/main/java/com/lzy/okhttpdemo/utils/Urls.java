@@ -19,6 +19,7 @@ public class Urls {
     public static final String URL_JSONARRAY = SERVER + "jsonArray";
     public static final String URL_FORM_UPLOAD = SERVER + "upload";
     public static final String URL_TEXT_UPLOAD = SERVER + "uploadString";
-    public static final String URL_DOWNLOAD = SERVER + "download";
+//    public static final String URL_DOWNLOAD = SERVER + "download";
+    public static final String URL_DOWNLOAD = "http://192.168.1.16:8080/apk/xiege.apk";
     public static final String URL_REDIRECT = SERVER + "redirect";
 }
